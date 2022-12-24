@@ -1,6 +1,9 @@
+import { useContext } from 'react';
+
 import CourseCard from './components/CourseCard/CourseCard';
 import Button from 'common/Button';
 import SearchBar from './components/SearchBar';
+import { Context } from 'Context';
 
 import { getAuthors } from 'helpers/authorsString';
 import { dateTransform } from 'helpers/dateGenerator';
@@ -9,10 +12,13 @@ import { durationTransform } from 'helpers/pipeDuration';
 import s from './Courses.module.css';
 
 const Courses = ({ courses = [] }) => {
+	const context = useContext(Context);
+	console.log(context);
+
 	return (
 		<section className={s.coursesSection}>
 			<div className={s.wrapper}>
-				<SearchBar />
+				<SearchBar value={context.filter} setFilter={context.setFilter} />
 				<Button btnText='Add new course' />
 			</div>
 			<ul>
