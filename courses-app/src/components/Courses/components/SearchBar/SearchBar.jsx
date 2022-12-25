@@ -10,7 +10,6 @@ import * as db from 'helpers/mockedDataBase';
 
 const SearchBar = ({ value = '', setFilter }) => {
 	const context = useContext(Context);
-	console.log(context);
 
 	const onChangeHandle = (e) => {
 		setFilter(e.target.value);

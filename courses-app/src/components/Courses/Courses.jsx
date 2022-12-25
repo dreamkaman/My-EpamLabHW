@@ -13,13 +13,16 @@ import s from './Courses.module.css';
 
 const Courses = ({ courses = [] }) => {
 	const context = useContext(Context);
-	console.log(context);
+
+	const onAddNewCourseClick = () => {
+		context.setShowCourses(false);
+	};
 
 	return (
 		<section className={s.coursesSection}>
 			<div className={s.wrapper}>
 				<SearchBar value={context.filter} setFilter={context.setFilter} />
-				<Button btnText='Add new course' />
+				<Button btnText='Add new course' onClick={onAddNewCourseClick} />
 			</div>
 			<ul>
 				{courses.map((course) => {

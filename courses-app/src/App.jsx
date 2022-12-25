@@ -14,6 +14,7 @@ const App = () => {
 	const [isLoggined, setIsLoggined] = useState(false);
 	const [courses, setCourses] = useState(initialCoursesSet);
 	const [filter, setFilter] = useState('');
+	const [showCourses, setShowCourses] = useState(true);
 
 	useEffect(() => {
 		if (!filter) {
@@ -34,12 +35,13 @@ const App = () => {
 					setFilter,
 					setCourses,
 					courses,
+					setShowCourses,
 				}}
 			>
 				<Header />
-				<Courses courses={courses} />
+				{showCourses && <Courses courses={courses} />}
+				{!showCourses && <CreateCourse />}
 			</Context.Provider>
-			<CreateCourse />
 		</>
 	);
 };

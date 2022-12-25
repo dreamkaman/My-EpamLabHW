@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 
 import Button from 'common/Button';
 import Input from 'common/Input';
 import Title from 'common/Title';
+import { Context } from 'Context';
 
 import { durationTransform } from 'helpers/pipeDuration';
 import * as db from 'helpers/mockedDataBase';
@@ -11,13 +12,13 @@ import s from './CreateCourse.module.css';
 
 const authorsInitial = db.mockedAuthorsList;
 
-console.log(authorsInitial);
-
 const CreateCourse = () => {
 	const [title, setTitle] = useState('');
 	const [authorName, setAuthorName] = useState('');
 	const [duration, setDuration] = useState('');
 	const [authors, setAuthors] = useState(authorsInitial);
+
+	const context = useContext(Context);
 
 	const onChangeTitleHandle = (e) => {
 		setTitle(e.target.value);
@@ -31,16 +32,30 @@ const CreateCourse = () => {
 		setDuration(e.target.value);
 	};
 
+	const onCancelClick = () => {
+		context.setShowCourses(true);
+	};
+
+	const onSubmitHandle = (e) => {
+		e.preventDefault();
+	};
+
+	const onCreateAuthorClickHandle = () => {};
+
 	return (
-		<form className={s.createCourseForm}>
+		<form className={s.createCourseForm} onSubmit={onSubmitHandle}>
 			<div className={s.courseHeader}>
 				<Input
 					labelTxt='Title'
 					value={title}
 					onChange={onChangeTitleHandle}
 					width='400px'
+					placeholder='Enter title'
 				/>
-				<Button btnText='Create course' type='submit' />
+				<div className={s.wrapperBtn}>
+					<Button btnText='Create course' type='submit' />
+					<Button btnText='Cancel' onClick={onCancelClick} />
+				</div>
 			</div>
 			<div className={s.descriptionBlock}>
 				<label htmlFor='description'>Description</label>
@@ -56,18 +71,19 @@ const CreateCourse = () => {
 						<Title titleText='Add author' />
 						<Input
 							labelTxt='Author name'
-							width={'100%'}
 							value={authorName}
 							onChange={onChangeAuthorNameHandle}
 							placeholder={'Enter author name...'}
 						/>
-						<Button btnText='Create author' />
+						<Button
+							btnText='Create author'
+							onClick={onCreateAuthorClickHandle}
+						/>
 					</div>
-					<div>
+					<div className={s.addDurationBlock}>
 						<Title titleText='Duration' />
 						<Input
 							labelTxt='Duration'
-							width={200}
 							value={duration}
 							onChange={onChangeDurationHandle}
 							placeholder={'Enter duration in minutes...'}
@@ -78,19 +94,24 @@ const CreateCourse = () => {
 					</div>
 				</div>
 				<div className={s.rightSide}>
-					<Title titleText='Authors' />
-					{authors.length && (
-						<ul>
-							{authors.map((author) => {
-								return (
-									<li key={author.id} className={s.authorListItem}>
-										{author.name}
-										<Button btnText='Add author' />
-									</li>
-								);
-							})}
-						</ul>
-					)}
+					<div className={s.authorListBlock}>
+						<Title titleText='Authors' />
+						{authors.length && (
+							<ul className={s.authorsList}>
+								{authors.map((author) => {
+									return (
+										<li key={author.id} className={s.authorListItem}>
+											{author.name}
+											<Button btnText='Add author' />
+										</li>
+									);
+								})}
+							</ul>
+						)}
+					</div>
+					<div className={s.courseAuthorsBlock}>
+						<Title titleText='Course authors' />
+					</div>
 				</div>
 			</div>
 		</form>
