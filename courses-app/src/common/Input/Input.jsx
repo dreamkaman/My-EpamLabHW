@@ -11,16 +11,20 @@ const Input = ({
 		<div className={s.wrapper}>
 			<label htmlFor='searchText' className={s.labelTxt}>
 				{labelTxt}
+				<input
+					name='searchText'
+					type='text'
+					style={
+						labelTxt
+							? { width: width + 'px', marginRight: '10px', marginLeft: '5px' }
+							: { width: width + 'px', marginRight: '10px' }
+					}
+					className={s.txtInput}
+					placeholder={placeholder}
+					value={value}
+					onChange={onChange}
+				/>
 			</label>
-			<input
-				name='searchText'
-				type='text'
-				style={{ width: width + 'px', marginRight: '10px' }}
-				className={s.txtInput}
-				placeholder={placeholder}
-				value={value}
-				onChange={onChange}
-			/>
 		</div>
 	);
 };

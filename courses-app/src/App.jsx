@@ -6,6 +6,7 @@ import Courses from './components/Courses/Courses';
 import { Context } from './Context';
 
 import * as db from 'helpers/mockedDataBase';
+import CreateCourse from 'components/CreateCourse';
 
 const initialCoursesSet = db.mockedCoursesList;
 
@@ -26,11 +27,19 @@ const App = () => {
 	return (
 		<>
 			<Context.Provider
-				value={{ isLoggined, onClickHandle, filter, setFilter, setCourses }}
+				value={{
+					isLoggined,
+					onClickHandle,
+					filter,
+					setFilter,
+					setCourses,
+					courses,
+				}}
 			>
 				<Header />
 				<Courses courses={courses} />
 			</Context.Provider>
+			<CreateCourse />
 		</>
 	);
 };

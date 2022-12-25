@@ -6,6 +6,8 @@ import { Context } from 'Context';
 
 import s from './SearchBar.module.css';
 
+import * as db from 'helpers/mockedDataBase';
+
 const SearchBar = ({ value = '', setFilter }) => {
 	const context = useContext(Context);
 	console.log(context);
@@ -16,7 +18,16 @@ const SearchBar = ({ value = '', setFilter }) => {
 
 	const onSubmitHandle = (e) => {
 		e.preventDefault();
-		console.log(context);
+		context.setCourses(db.mockedCoursesList);
+		const filter = context.filter.toLowerCase();
+		if (filter) {
+			const foundCourses = context.courses.filter(
+				(course) =>
+					course.id.toLowerCase().includes(filter) ||
+					course.title.toLowerCase().includes(filter)
+			);
+			context.setCourses(foundCourses);
+		}
 	};
 
 	return (
