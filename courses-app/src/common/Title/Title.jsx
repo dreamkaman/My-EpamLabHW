@@ -1,5 +1,5 @@
-const Title = ({ titleText }) => {
-	<h3>{titleText}</h3>;
-};
+import s from './Title.module.css';
+
+const Title = ({ titleText }) => <h3 className={s.title}>{titleText}</h3>;
 
 export default Title;

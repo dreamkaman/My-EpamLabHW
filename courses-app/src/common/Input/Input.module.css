@@ -1,18 +1,11 @@
-.wrapper{
-    display:flex;
-    align-items: center;
-    justify-content: flex-start;
-
+.labelTxt {
+  display: flex;
+  flex-direction: column;
 }
 
-.labelTxt{
-    width:max-content;
-    margin-right: 10px;
-}
-
-.txtInput{
-border: 1px solid var(--input-border-color);
-border-radius: 3px;
-font-size: 18px;
-padding: 5px;
+.txtInput {
+  border: 1px solid var(--input-border-color);
+  border-radius: 3px;
+  font-size: 18px;
+  padding: 5px;
 }
