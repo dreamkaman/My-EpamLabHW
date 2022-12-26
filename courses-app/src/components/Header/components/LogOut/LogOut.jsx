@@ -1,8 +1,8 @@
-import Button from '../../../../common/Button';
+import Button from 'common/Button';
 
 import s from './LogOut.module.css';
 
-const LogOut = ({ userName = 'Anonymous', onclick }) => {
+const LogOut = ({ userName = 'Vasya', onclick }) => {
 	const onClickHandler = () => {
 		onclick(false);
 	};

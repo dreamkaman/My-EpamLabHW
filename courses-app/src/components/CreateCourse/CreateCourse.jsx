@@ -5,8 +5,11 @@ import Input from 'common/Input';
 import Title from 'common/Title';
 import { Context } from 'Context';
 
+import { v4 as uuidV4 } from 'uuid';
+
 import { durationTransform } from 'helpers/pipeDuration';
 import * as db from 'helpers/mockedDataBase';
+import { getAuthors, getAuthorsMarkUp } from 'helpers/authorsString';
 
 import s from './CreateCourse.module.css';
 
@@ -17,6 +20,7 @@ const CreateCourse = () => {
 	const [authorName, setAuthorName] = useState('');
 	const [duration, setDuration] = useState('');
 	const [authors, setAuthors] = useState(authorsInitial);
+	const [selectedAuthors, setSelectedAuthors] = useState([]);
 
 	const context = useContext(Context);
 
@@ -40,7 +44,23 @@ const CreateCourse = () => {
 		e.preventDefault();
 	};
 
-	const onCreateAuthorClickHandle = () => {};
+	const onCreateAuthorClickHandle = (e) => {
+		if (authorName && authorName.length > 1) {
+			const id = uuidV4();
+			setAuthors((prev) => [...prev, { id, name: authorName }]);
+			setAuthorName('');
+			return;
+		}
+		alert('Please, enter correct author name');
+	};
+
+	const onAddAuthorClickHandle = (e) => {
+		console.dir(e.target.id);
+		const id = e.target.id;
+		setSelectedAuthors((prev) => [id, ...prev]);
+	};
+
+	const authorListMarkUp = selectedAuthors.map((author) => {});
 
 	return (
 		<form className={s.createCourseForm} onSubmit={onSubmitHandle}>
@@ -102,7 +122,11 @@ const CreateCourse = () => {
 									return (
 										<li key={author.id} className={s.authorListItem}>
 											{author.name}
-											<Button btnText='Add author' />
+											<Button
+												id={author.id}
+												btnText='Add author'
+												onClick={onAddAuthorClickHandle}
+											/>
 										</li>
 									);
 								})}
@@ -111,6 +135,7 @@ const CreateCourse = () => {
 					</div>
 					<div className={s.courseAuthorsBlock}>
 						<Title titleText='Course authors' />
+						{/* {selectedAuthors.length ? getAuthorsMarkUp(selectedAuthors) : 'Author list is empty'} */}
 					</div>
 				</div>
 			</div>
