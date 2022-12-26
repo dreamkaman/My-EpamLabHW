@@ -3,13 +3,13 @@ import { useState, useContext } from 'react';
 import Button from 'common/Button';
 import Input from 'common/Input';
 import Title from 'common/Title';
+import SelectedAuthorsList from './components/SelectedAuthorsList';
 import { Context } from 'Context';
 
 import { v4 as uuidV4 } from 'uuid';
 
 import { durationTransform } from 'helpers/pipeDuration';
 import * as db from 'helpers/mockedDataBase';
-import { getAuthors, getAuthorsMarkUp } from 'helpers/authorsString';
 
 import s from './CreateCourse.module.css';
 
@@ -59,8 +59,6 @@ const CreateCourse = () => {
 		const id = e.target.id;
 		setSelectedAuthors((prev) => [id, ...prev]);
 	};
-
-	const authorListMarkUp = selectedAuthors.map((author) => {});
 
 	return (
 		<form className={s.createCourseForm} onSubmit={onSubmitHandle}>
@@ -135,7 +133,11 @@ const CreateCourse = () => {
 					</div>
 					<div className={s.courseAuthorsBlock}>
 						<Title titleText='Course authors' />
-						{/* {selectedAuthors.length ? getAuthorsMarkUp(selectedAuthors) : 'Author list is empty'} */}
+						{selectedAuthors.length ? (
+							<SelectedAuthorsList selectedAuthors={selectedAuthors} />
+						) : (
+							<p style={{ fontWeight: '500' }}>Author list is empty</p>
+						)}
 					</div>
 				</div>
 			</div>
