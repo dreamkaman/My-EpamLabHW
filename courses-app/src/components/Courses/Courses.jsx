@@ -5,7 +5,7 @@ import Button from 'common/Button';
 import SearchBar from './components/SearchBar';
 import { Context } from 'Context';
 
-import { getAuthors } from 'helpers/authorsString';
+import { getAuthorsName } from 'helpers/authorsString';
 import { dateTransform } from 'helpers/dateGenerator';
 import { durationTransform } from 'helpers/pipeDuration';
 
@@ -31,7 +31,7 @@ const Courses = () => {
 							key={course.id}
 							title={course.title}
 							description={course.description}
-							authors={getAuthors(course.authors)}
+							authors={getAuthorsName(course.authors)}
 							duration={durationTransform(course.duration)}
 							created={dateTransform(course.creationDate)}
 						/>

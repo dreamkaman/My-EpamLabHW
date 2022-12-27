@@ -1,6 +1,7 @@
 import s from './Input.module.css';
 
 const Input = ({
+	name = 'noname',
 	placeholder = '',
 	width = '100%',
 	labelTxt = '',
@@ -8,10 +9,10 @@ const Input = ({
 	onChange,
 }) => {
 	return (
-		<label htmlFor='searchText' className={s.labelTxt}>
+		<label htmlFor={name} className={s.labelTxt}>
 			{labelTxt}
 			<input
-				name='searchText'
+				name={name}
 				type='text'
 				style={{ width: width }}
 				className={s.txtInput}

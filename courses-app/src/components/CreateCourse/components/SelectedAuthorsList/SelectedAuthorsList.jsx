@@ -1,15 +1,8 @@
-import { useContext } from 'react';
-
 import Button from 'common/Button';
-import { Context } from 'Context';
 
 import s from './SelectedAuthorsList.module.css';
 
 const SelectedAuthorsList = ({ selectedAuthors, onClick }) => {
-	const context = useContext(Context);
-
-	console.log('AUTHORS - ', context.authors);
-
 	return (
 		<ul>
 			{selectedAuthors.map((author) => {
