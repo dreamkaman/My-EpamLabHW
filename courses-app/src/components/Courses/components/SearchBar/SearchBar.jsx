@@ -33,6 +33,7 @@ const SearchBar = ({ value = '', setFilter }) => {
 		<div>
 			<form action='#' className={s.searchForm} onSubmit={onSubmitHandle}>
 				<Input
+					name='searchText'
 					placeholder='Enter course name...'
 					onChange={onChangeHandle}
 					value={value}

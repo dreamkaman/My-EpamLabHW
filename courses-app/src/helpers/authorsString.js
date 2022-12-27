@@ -1,11 +1,14 @@
 import { mockedAuthorsList } from 'helpers/mockedDataBase';
-export const getAuthors = (authorsArray) => {
-	const authorsName = authorsArray.map((authorId) => {
-		const foundAuthor = mockedAuthorsList.find((item) => item.id === authorId);
-		return foundAuthor.name;
-	});
+export const getAuthorsName = (authorsIdArray) => {
+	const authorsName = authorsIdArray.map((author) => author.name);
 
 	return authorsName.join(', ');
+};
+
+export const getAuthorsIdArray = (authorsArray) => {
+	const AuthorsIdArray = authorsArray.map((author) => author.id);
+
+	return AuthorsIdArray;
 };
 
 export const getAuthorsMarkUp = (authorsArray) => {
