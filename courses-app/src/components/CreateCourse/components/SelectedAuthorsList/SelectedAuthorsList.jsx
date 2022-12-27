@@ -1,20 +1,22 @@
-import Button from 'common/Button';
+import { useContext } from 'react';
 
-import { mockedAuthorsList } from 'helpers/mockedDataBase';
+import Button from 'common/Button';
+import { Context } from 'Context';
 
 import s from './SelectedAuthorsList.module.css';
 
-const SelectedAuthorsList = ({ selectedAuthors }) => {
+const SelectedAuthorsList = ({ selectedAuthors, onClick }) => {
+	const context = useContext(Context);
+
+	console.log('AUTHORS - ', context.authors);
+
 	return (
 		<ul>
-			{selectedAuthors.map((authorId) => {
-				const foundAuthor = mockedAuthorsList.find(
-					(item) => item.id === authorId
-				);
+			{selectedAuthors.map((author) => {
 				return (
-					<li key={foundAuthor.id} className={s.authorsListItem}>
-						{foundAuthor.name}
-						<Button id={foundAuthor.id} btnText='X' />
+					<li key={author.id} className={s.authorsListItem}>
+						{author.name}
+						<Button id={author.id} btnText='X' onClick={onClick} />
 					</li>
 				);
 			})}

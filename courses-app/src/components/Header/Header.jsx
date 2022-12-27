@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 
-import Logo from './components/Logo/Logo';
-import LogOut from './components/LogOut/LogOut';
+import Logo from './components/Logo';
+import LogOut from './components/LogOut';
 import Button from 'common/Button';
 
 import { Context } from 'Context';
