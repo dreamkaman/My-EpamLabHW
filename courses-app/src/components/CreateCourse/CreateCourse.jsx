@@ -1,4 +1,5 @@
 import { useState, useContext } from 'react';
+import { v4 as uuidV4 } from 'uuid';
 
 import Button from 'common/Button';
 import Input from 'common/Input';
@@ -6,23 +7,19 @@ import Title from 'common/Title';
 import SelectedAuthorsList from './components/SelectedAuthorsList';
 import { Context } from 'Context';
 
-import { v4 as uuidV4 } from 'uuid';
-
 import { durationTransform } from 'helpers/pipeDuration';
-import * as db from 'helpers/mockedDataBase';
 
 import s from './CreateCourse.module.css';
 
-const authorsInitial = db.mockedAuthorsList;
-
 const CreateCourse = () => {
 	const [title, setTitle] = useState('');
-	const [authorName, setAuthorName] = useState('');
+	const [authorName, setAuthorName] = useState(''); //state for the new author name input
 	const [duration, setDuration] = useState('');
-	const [authors, setAuthors] = useState(authorsInitial);
 	const [selectedAuthors, setSelectedAuthors] = useState([]);
 
 	const context = useContext(Context);
+
+	console.log(context);
 
 	const onChangeTitleHandle = (e) => {
 		setTitle(e.target.value);
@@ -47,7 +44,7 @@ const CreateCourse = () => {
 	const onCreateAuthorClickHandle = (e) => {
 		if (authorName && authorName.length > 1) {
 			const id = uuidV4();
-			setAuthors((prev) => [...prev, { id, name: authorName }]);
+			context.setAuthors((prev) => [...prev, { id, name: authorName }]);
 			setAuthorName('');
 			return;
 		}
@@ -56,8 +53,29 @@ const CreateCourse = () => {
 
 	const onAddAuthorClickHandle = (e) => {
 		console.dir(e.target.id);
-		const id = e.target.id;
-		setSelectedAuthors((prev) => [id, ...prev]);
+		const selectedAuthor = context.authors.find(
+			(author) => author.id === e.target.id
+		);
+
+		setSelectedAuthors((prev) => [selectedAuthor, ...prev]);
+
+		const restAuthors = context.authors.filter(
+			(author) => author.id !== e.target.id
+		);
+		context.setAuthors(restAuthors);
+	};
+
+	const onDeleteAuthorClickHandle = (e) => {
+		console.log(e.target.id);
+		const deletedAuthorId = e.target.id;
+		const deletedAuthor = selectedAuthors.find(
+			(author) => author.id === e.target.id
+		);
+		setSelectedAuthors((prev) => {
+			const newState = prev.filter((author) => author.id !== deletedAuthorId);
+			return newState;
+		});
+		context.setAuthors((prev) => [...prev, { ...deletedAuthor }]);
 	};
 
 	return (
@@ -114,9 +132,9 @@ const CreateCourse = () => {
 				<div className={s.rightSide}>
 					<div className={s.authorListBlock}>
 						<Title titleText='Authors' />
-						{authors.length && (
+						{!!context.authors.length && (
 							<ul className={s.authorsList}>
-								{authors.map((author) => {
+								{context.authors.map((author) => {
 									return (
 										<li key={author.id} className={s.authorListItem}>
 											{author.name}
@@ -134,7 +152,10 @@ const CreateCourse = () => {
 					<div className={s.courseAuthorsBlock}>
 						<Title titleText='Course authors' />
 						{selectedAuthors.length ? (
-							<SelectedAuthorsList selectedAuthors={selectedAuthors} />
+							<SelectedAuthorsList
+								selectedAuthors={selectedAuthors}
+								onClick={onDeleteAuthorClickHandle}
+							/>
 						) : (
 							<p style={{ fontWeight: '500' }}>Author list is empty</p>
 						)}

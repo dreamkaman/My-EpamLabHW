@@ -9,12 +9,14 @@ import * as db from 'helpers/mockedDataBase';
 import CreateCourse from 'components/CreateCourse';
 
 const initialCoursesSet = db.mockedCoursesList;
+const authorsInitial = db.mockedAuthorsList;
 
 const App = () => {
 	const [isLoggined, setIsLoggined] = useState(false);
 	const [courses, setCourses] = useState(initialCoursesSet);
 	const [filter, setFilter] = useState('');
 	const [showCourses, setShowCourses] = useState(true);
+	const [authors, setAuthors] = useState(authorsInitial);
 
 	useEffect(() => {
 		if (!filter) {
@@ -33,13 +35,15 @@ const App = () => {
 					onClickHandle,
 					filter,
 					setFilter,
-					setCourses,
 					courses,
+					setCourses,
 					setShowCourses,
+					authors,
+					setAuthors,
 				}}
 			>
 				<Header />
-				{showCourses && <Courses courses={courses} />}
+				{showCourses && <Courses />}
 				{!showCourses && <CreateCourse />}
 			</Context.Provider>
 		</>

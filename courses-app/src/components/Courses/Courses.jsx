@@ -11,7 +11,7 @@ import { durationTransform } from 'helpers/pipeDuration';
 
 import s from './Courses.module.css';
 
-const Courses = ({ courses = [] }) => {
+const Courses = () => {
 	const context = useContext(Context);
 
 	const onAddNewCourseClick = () => {
@@ -25,7 +25,7 @@ const Courses = ({ courses = [] }) => {
 				<Button btnText='Add new course' onClick={onAddNewCourseClick} />
 			</div>
 			<ul>
-				{courses.map((course) => {
+				{context.courses.map((course) => {
 					return (
 						<CourseCard
 							key={course.id}
