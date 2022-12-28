@@ -2,7 +2,7 @@ import Button from 'common/Button';
 
 import s from './CourseCard.module.css';
 
-const CourseCard = ({ title, description, authors, duration, created }) => {
+const CourseCard = ({ title, description, authorsName, duration, created }) => {
 	return (
 		<li className={s.courseCard}>
 			<div className={s.courseCardLeftSide}>
@@ -12,7 +12,7 @@ const CourseCard = ({ title, description, authors, duration, created }) => {
 			<div className={s.courseCardRightSide}>
 				<p>
 					<span>Author: </span>
-					{authors}
+					{authorsName}
 				</p>
 				<p>
 					<span>Duration: </span>

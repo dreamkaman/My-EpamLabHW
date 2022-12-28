@@ -5,7 +5,7 @@ import Button from 'common/Button';
 import SearchBar from './components/SearchBar';
 import { Context } from 'Context';
 
-import { getAuthorsName } from 'helpers/authorsString';
+import { convertAuthorsIdToNames } from 'helpers/authorsString';
 import { dateTransform } from 'helpers/dateGenerator';
 import { durationTransform } from 'helpers/pipeDuration';
 
@@ -26,12 +26,16 @@ const Courses = () => {
 			</div>
 			<ul>
 				{context.courses.map((course) => {
+					console.log(course);
 					return (
 						<CourseCard
 							key={course.id}
 							title={course.title}
 							description={course.description}
-							authors={getAuthorsName(course.authors)}
+							authorsName={convertAuthorsIdToNames(
+								course.authors,
+								context.authors
+							)}
 							duration={durationTransform(course.duration)}
 							created={dateTransform(course.creationDate)}
 						/>
