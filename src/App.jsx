@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
-import Header from './components/Header/Header';
-import Courses from './components/Courses/Courses';
+import Header from './components/Header';
+import Courses from './components/Courses';
 import CreateCourse from 'components/CreateCourse';
 
 import { Context } from './Context';
